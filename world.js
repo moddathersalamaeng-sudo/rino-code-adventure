@@ -1,5 +1,6 @@
 import * as T from './vendor/three.module.js';
-import {findWalkingPath} from './navigation.js';
+import {findWalkingPath} from './navigation.js?v=0.4.2';
+import {bindSceneInput} from './touch-controls.js?v=0.4.2';
 const $=s=>document.querySelector(s), trips=window.RINO_TRIPS, viewport=$('#viewport'), panel=$('#panel');
 const keys=new Set(), points=[],colliders=[],vehicles=[],rings=[],labels=[],villagers=[];
 let journey=null,petFollowing=false,dogInteraction=null,dogBallPoints=[];
@@ -121,7 +122,7 @@ $('#exportBuild').onclick=()=>{const data={name:'Rino Creator Island',bridgePiec
 $('#resetProgress').onclick=()=>{openPanel('إعادة البداية','تمسح تقدم اللعبة وتصميم الجسر على هذا المتصفح؟');$('#panelContent').append(element('p','تقدر تقفل النافذة للاحتفاظ بتقدمك. لو بدأت من جديد هترجع الأدلة والإجابات والرحلات للصفر.'));resetPending=true;$('#nextQuestion').textContent='ابدأ من جديد';$('#nextQuestion').hidden=false;};
 const mapping={ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right'};
 window.addEventListener('keydown',e=>{if(panel.open||/INPUT|TEXTAREA|BUTTON/.test(document.activeElement.tagName))return;if(mapping[e.code]){e.preventDefault();stopMoving();keys.add(mapping[e.code]);}if(e.repeat)return;if(e.code==='KeyE')interact();if(e.code==='KeyV')equipment();if(e.code==='KeyR'){safeSpawn();status('رجعنا لمكان آمن، ومعلوماتك محفوظة.');}});window.addEventListener('keyup',e=>keys.delete(mapping[e.code]));window.addEventListener('blur',()=>{keys.clear();stopMoving();});document.addEventListener('visibilitychange',()=>{keys.clear();stopMoving();last=performance.now();});
-let drag=null;renderer.domElement.addEventListener('pointerdown',e=>{if(e.isPrimary===false||e.button>0)return;drag={x:e.clientX,y:e.clientY,id:e.pointerId,yaw,moved:false};renderer.domElement.setPointerCapture(e.pointerId);viewport.focus({preventScroll:true});});renderer.domElement.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;if(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>8)drag.moved=true;if(drag.moved)yaw=drag.yaw-(e.clientX-drag.x)*.006;});renderer.domElement.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const tapped=!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<=8;drag=null;if(tapped)tapToMove(e);});renderer.domElement.addEventListener('pointercancel',()=>{drag=null;stopMoving();});
+bindSceneInput(renderer.domElement,{onTarget:tapToMove,onRotate:dx=>yaw-=dx*.006,onFocus:()=>viewport.focus({preventScroll:true})});
 function withinBuilding(x,z){return colliders.some(b=>Math.abs(x-b.x)<b.w/2+.6&&Math.abs(z-b.z)<b.d/2+.6);}
 function socialLife(dt){
  for(const p of villagers){if(p.ci!==chapter)continue;const [tx,tz]=p.path[p.target],dx=tx-p.person.position.x,dz=tz-p.person.position.z,d=Math.hypot(dx,dz);if(d<.2)p.target=(p.target+1)%p.path.length;else{const step=Math.min(d,dt*1.25);p.person.position.x+=dx/d*step;p.person.position.z+=dz/d*step;p.person.rotation.y=Math.atan2(dx,dz);}p.feet.forEach((f,i)=>f.rotation.x=Math.sin(frameTime*5+i*Math.PI)*.3);p.x=p.person.position.x;p.z=p.person.position.z;if(p.wave>0){p.wave-=dt;p.arm.rotation.z=1.7+Math.sin(frameTime*12)*.25;}else p.arm.rotation.z=0;}
