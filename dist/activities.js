@@ -1,6 +1,6 @@
 // رينو: عدّل الأدلة والأسئلة مع ولي الأمر. answer يبدأ من صفر.
 window.RINO_TRIPS=[
- {id:'sea',name:'ميناء المستكشف',short:'البحر',icon:'⛵',x:-55,color:0x43b7c1,vehicle:'المركب',drive:'قد المركب بالأسهم عبر الحلقات الثلاث في البحر.',
+ {id:'sea',name:'ميناء المستكشف',short:'البحر',icon:'⛵',x:-80,color:0x43b7c1,vehicle:'المركب',drive:'قد المركب بالأسهم عبر الحلقات الثلاث في البحر.',
  clues:[
  {name:'مخزن الشحن',label:'CARGO',pos:[-12,-13],english:'Morning cargo: 248 boxes. Afternoon cargo: 176 boxes. Total = morning + afternoon.',arabic:'سجّل عدد صناديق الصباح وبعد الظهر. هتحتاج تجمعهم لتجهيز الشحنة.'},
  {name:'ورشة العجلات',label:'WHEELS',pos:[11,-19],english:'Each kit has 4 wheels. The workshop needs 6 kits. Equal groups can be counted by multiplication.',arabic:'كل طقم فيه 4 عجلات، والورشة محتاجة 6 أطقم. فكّر في المجموعات المتساوية.'},
@@ -20,7 +20,7 @@ window.RINO_TRIPS=[
  {prompt:'Three tickets cost 12 coins each. What is the total?',options:['15 coins','32 coins','36 coins'],answer:2,hint:'12 × 3 = (10 × 3) + (2 × 3).',explain:'30 + 6 = 36 coins. Multiplication gives the total cost.'},
  {prompt:'Which action follows the station safety rule?',options:['Run onto the track.','Wait behind the yellow line until the train stops.','Board a moving train.'],answer:1,hint:'شوف أول سطرين في دليل SAFETY: Wait behind… / only when it stops.',explain:'Wait behind the line and board only when the train stops.'}
  ]},
- {id:'air',name:'مطار رينو',short:'الطيارة',icon:'✈',x:55,color:0x9da4f4,vehicle:'الطيارة',drive:'قد الطيارة بالأسهم عبر حلقات الجو. الإقلاع والهبوط تلقائيان؛ أنت توجه الرحلة.',
+ {id:'air',name:'مطار رينو',short:'الطيارة',icon:'✈',x:80,color:0x9da4f4,vehicle:'الطيارة',drive:'قد الطيارة بالأسهم عبر حلقات الجو. الإقلاع والهبوط تلقائيان؛ أنت توجه الرحلة.',
  clues:[
  {name:'ميزان الحقائب',label:'BAGGAGE',pos:[-12,-13],english:'There are 8 bags. Each bag weighs 7 kg. The training plane can carry up to 60 kg of bags.',arabic:'سجّل عدد الحقائب ووزن الواحدة وحد الحمولة. هتستخدمهم في قاعدة الإقلاع.'},
  {name:'غرفة الطقس',label:'WEATHER',pos:[11,-19],english:'Today: CLEAR skies, light wind. Clear = no clouds blocking the sky. The pilot checks weather before take-off.',arabic:'ابحث عن معنى CLEAR في التقرير. الطيار بيراجع الجو قبل الإقلاع.'},
