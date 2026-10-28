@@ -1,6 +1,6 @@
 // رينو: عدّل الأدلة والأسئلة مع ولي الأمر. answer يبدأ من صفر.
 window.RINO_TRIPS=[
- {id:'sea',name:'ميناء المستكشف',short:'البحر',icon:'⛵',x:-80,color:0x43b7c1,vehicle:'المركب',drive:'قد المركب بالأسهم عبر الحلقات الثلاث في البحر.',
+ {id:'sea',name:'ميناء المستكشف',short:'البحر',icon:'⛵',x:-80,color:0x43b7c1,vehicle:'المركب',drive:'اضغط على المكان أمام المركب علشان يتحرك له. مرّ بالحلقات الثلاث بالترتيب.',
  clues:[
  {name:'مخزن الشحن',label:'CARGO',pos:[-12,-13],english:'Morning cargo: 248 boxes. Afternoon cargo: 176 boxes. Total = morning + afternoon.',arabic:'سجّل عدد صناديق الصباح وبعد الظهر. هتحتاج تجمعهم لتجهيز الشحنة.'},
  {name:'ورشة العجلات',label:'WHEELS',pos:[11,-19],english:'Each kit has 4 wheels. The workshop needs 6 kits. Equal groups can be counted by multiplication.',arabic:'كل طقم فيه 4 عجلات، والورشة محتاجة 6 أطقم. فكّر في المجموعات المتساوية.'},
@@ -10,7 +10,7 @@ window.RINO_TRIPS=[
  {prompt:'How many wheels do 6 kits need?',options:['24 wheels','10 wheels','20 wheels'],answer:0,hint:'دليل WHEELS: كل طقم 4 عجلات. احسب 6 × 4.',explain:'6 × 4 = 24 wheels. Six equal groups of four.'},
  {prompt:'What is a bag?',options:['A window · نافذة','An island · جزيرة','A container for carrying things · حقيبة'],answer:2,hint:'افتح دليل CAPTAIN وفكّر في شنطة رينو.',explain:'Bag = حقيبة. The map goes inside the bag.'}
  ]},
- {id:'rail',name:'محطة الرحلات',short:'القطر',icon:'🚆',x:0,color:0xf8bc65,vehicle:'القطر',drive:'قد القطر عبر المحطات الثلاث. ↑ أو W للتقدم و↓ للرجوع؛ السكة بتوجّهك.',
+ {id:'rail',name:'محطة الرحلات',short:'القطر',icon:'🚆',x:0,color:0xf8bc65,vehicle:'القطر',drive:'اضغط على نقطة قدام القطر علشان يتحرك على السكة. مرّ بالمحطات الثلاث بالترتيب.',
  clues:[
  {name:'جدول المحطة',label:'TIMETABLE',pos:[-12,-13],english:'Explorer train: Departure 10:30. Arrival 11:15. 1 hour = 60 minutes.',arabic:'احسب زمن الرحلة على خطوتين: لنهاية الساعة، ثم لموعد الوصول.'},
  {name:'شباك التذاكر',label:'TICKETS',pos:[11,-19],english:'One ticket costs 12 coins. Rino buys 3 tickets. Total cost = price × number of tickets.',arabic:'فكّر في 10 × 3 وبعدين 2 × 3 علشان تحسب ثمن التذاكر.'},
@@ -20,7 +20,7 @@ window.RINO_TRIPS=[
  {prompt:'Three tickets cost 12 coins each. What is the total?',options:['15 coins','32 coins','36 coins'],answer:2,hint:'12 × 3 = (10 × 3) + (2 × 3).',explain:'30 + 6 = 36 coins. Multiplication gives the total cost.'},
  {prompt:'Which action follows the station safety rule?',options:['Run onto the track.','Wait behind the yellow line until the train stops.','Board a moving train.'],answer:1,hint:'شوف أول سطرين في دليل SAFETY: Wait behind… / only when it stops.',explain:'Wait behind the line and board only when the train stops.'}
  ]},
- {id:'air',name:'مطار رينو',short:'الطيارة',icon:'✈',x:80,color:0x9da4f4,vehicle:'الطيارة',drive:'قد الطيارة بالأسهم عبر حلقات الجو. الإقلاع والهبوط تلقائيان؛ أنت توجه الرحلة.',
+ {id:'air',name:'مطار رينو',short:'الطيارة',icon:'✈',x:80,color:0x9da4f4,vehicle:'الطيارة',drive:'اضغط على المكان قدام الطيارة لتوجيهها عبر الحلقات. الإقلاع والهبوط تلقائيان.',
  clues:[
  {name:'ميزان الحقائب',label:'BAGGAGE',pos:[-12,-13],english:'There are 8 bags. Each bag weighs 7 kg. The training plane can carry up to 60 kg of bags.',arabic:'سجّل عدد الحقائب ووزن الواحدة وحد الحمولة. هتستخدمهم في قاعدة الإقلاع.'},
  {name:'غرفة الطقس',label:'WEATHER',pos:[11,-19],english:'Today: CLEAR skies, light wind. Clear = no clouds blocking the sky. The pilot checks weather before take-off.',arabic:'ابحث عن معنى CLEAR في التقرير. الطيار بيراجع الجو قبل الإقلاع.'},
@@ -31,3 +31,4 @@ window.RINO_TRIPS=[
  {prompt:'Bags = 56 kg. Limit = 60 kg. Weather = CLEAR. Does the training code allow take-off?',options:['No, 56 is greater than 60.','Yes, both conditions are true.','No, there is a storm.'],answer:1,hint:'هل 56 <= 60؟ وهل الطقس CLEAR؟ راجع FLIGHT CODE.',explain:'Yes. Both conditions are true. AND needs both. This simplified rule is for our game.'}
  ]}
 ];
+
