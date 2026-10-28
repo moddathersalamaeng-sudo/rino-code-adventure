@@ -1,0 +1,1 @@
+{"name":"rino-world-adventure","version":"0.3.0","private":true,"type":"module","scripts":{"start":"node server.cjs","build":"node build.cjs","check":"node --check world.js && node --check activities.js"}}
