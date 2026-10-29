@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import {normalizeSpeech,spokenNumber,parseVoiceIntent,createVoiceControls} from '../voice.js';
+assert.equal(normalizeSpeech('أَرْبَعَة ٢٤'),'اربعه 24');
+assert.equal(spokenNumber('four hundred and twenty four'),424);assert.equal(spokenNumber('أربعة وعشرين'),24);assert.equal(spokenNumber('٤٢٤'),424);
+assert.deepEqual(parseVoiceIntent('twenty four',{options:['24 wheels','10 wheels','20 wheels']}),{kind:'answer',index:0});
+assert.deepEqual(parseVoiceIntent('الاختيار الثاني',{options:['414 boxes','424 boxes','324 boxes']}),{kind:'answer',index:1});
+assert.deepEqual(parseVoiceIntent('four hundred and twenty four',{options:['414 boxes','424 boxes','324 boxes']}),{kind:'answer',index:1});
+assert.deepEqual(parseVoiceIntent('Yes',{options:['No, too much.','Yes, both are true.','No, a storm.']}),{kind:'answer',index:1});
+assert.equal(parseVoiceIntent('no',{options:['No, too much.','Yes.','No, a storm.']}),null,'ambiguous answers must not be guessed');
+assert.deepEqual(parseVoiceIntent('يا رينو قف'),{kind:'command',command:'stop'});assert.deepEqual(parseVoiceIntent('افتح الدفتر'),{kind:'command',command:'notebook'});
+assert.equal(parseVoiceIntent('random words'),null);
+const node=()=>({textContent:'',value:'ar-EG',disabled:false,setAttribute(){}}),mic=node(),toggle=node(),repeat=node(),status=node(),select=node();
+const elements={'[data-voice-mic]':[mic],'[data-voice-toggle]':[toggle],'[data-voice-repeat]':[repeat],'[data-voice-status]':[status],'[data-voice-language]':[select]};
+const doc={querySelectorAll:s=>elements[s]||[],addEventListener(){},hidden:false};let lastRecognition,spoke=[],received=[],listeningStates=[];
+class Recognition{constructor(){lastRecognition=this;}start(){this.started=true;}abort(){this.aborted=true;}}
+const host={SpeechRecognition:Recognition,SpeechSynthesisUtterance:class{constructor(text){this.text=text;}},speechSynthesis:{cancel(){},getVoices:()=>[{lang:'en-US'},{lang:'ar-EG'}],speak:u=>spoke.push(u)}};
+const voice=createVoiceControls({getContext:()=>({options:['24','10','20']}),onIntent:i=>received.push(i),onRepeat(){},onListening:v=>listeningStates.push(v)},{host,doc});
+assert(!voice.enabled);assert(!voice.listening);assert.equal(lastRecognition,undefined,'never open microphone on load');
+toggle.onclick();assert(voice.enabled);assert(spoke.length);assert.equal(spoke.at(-1).lang,'ar-EG');
+select.value='en-US';select.onchange();mic.onclick();assert(voice.listening);assert(lastRecognition.started);assert.equal(lastRecognition.lang,'en-US');
+lastRecognition.onresult({resultIndex:0,results:[[{transcript:'twenty four'}]]});assert(!voice.listening);assert(lastRecognition.aborted);assert.deepEqual(received[0],{kind:'answer',index:0});assert.deepEqual(listeningStates.slice(-2),[true,false]);
+mic.onclick();lastRecognition.onerror({error:'not-allowed'});assert(!voice.listening);assert.match(status.textContent,/مقفول/);
+mic.onclick();lastRecognition.onerror({error:'network'});assert(!voice.listening);assert.match(status.textContent,/بالإنترنت/);
+const disabled=createVoiceControls({getContext:()=>({}),onIntent(){},onRepeat(){},onListening(){}},{host:{},doc});assert(!disabled.supported.microphone);assert(mic.disabled);assert(toggle.disabled);
+console.log('Voice answers, Arabic/English commands, opt-in microphone, permission/network failures and unsupported-browser fallback passed.');
